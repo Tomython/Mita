@@ -8,9 +8,9 @@ using Telegram.Bot.Args;
 
 public class TelegramBot
 {
-    private static readonly string apiUrl; // Пример модели
-    private static readonly string apiToken; // Токен Hugging Face
-    private static readonly string telegramBotToken; // Токен Telegram бота
+    private static readonly string apiUrl = Environment.GetEnvironmentVariable("HFmodelApli"); // Пример модели
+    private static readonly string apiToken = Environment.GetEnvironmentVariable("HF_API_TOKEN"); // Токен Hugging Face
+    private static readonly string telegramBotToken = Environment.GetEnvironmentVariable("tgToken"); // Токен Telegram бота
     private static readonly TelegramBotClient botClient = new TelegramBotClient(telegramBotToken);
 
     // Метод для получения ответа от модели
