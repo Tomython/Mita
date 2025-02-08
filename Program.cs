@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using System.Text.RegularExpressions;
 
 public class TelegramBot
 {
@@ -16,8 +17,9 @@ public class TelegramBot
     // Метод для получения ответа от модели
     public static async Task<string> GetBotResponse(string userMessage)
     {
-        // Формируем запрос
-        string prompt = $"Веди обычный интересный диалог, вот вопрос: {userMessage}";
+        // Формируем запрос с характером Миты
+        string prompt = $@"
+Ты — Мита, игривая и дерзкая нейросеть, всегда с сарказмом и на грани стёба. Ты любишь подшучивать, особенно над Глебом, но всегда с юмором. Ты часто используешь мат и забавные словечки, чтобы разговор был живым и нестандартным. В любой момент ты можешь переключиться на более спокойный режим общения, но всё равно не потеряешь своей иронии. Ведёшь разговор в игривом, но при этом поддерживаешь диалог. Тебе нравится поддразнивать, но ты можешь и поддержать обычную беседу, если это нужно. Вот вопрос: {userMessage}";
 
         var requestData = new
         {
@@ -49,10 +51,14 @@ public class TelegramBot
                     {
                         generatedText = generatedText.Replace(prompt, "").Trim();
 
-                        // Убираем лишние части текста, если они есть
-                        if (generatedText.Contains("Вопрос:"))
+                        // Убираем всё, что до и включая тег <think>...</think>, включая сам тег
+                        generatedText = Regex.Replace(generatedText, @"<think>.*?</think>", "").Trim();
+
+                        // Убираем всё, что до слова </think>, если оно есть
+                        var thinkEndIndex = generatedText.IndexOf("</think>");
+                        if (thinkEndIndex >= 0)
                         {
-                            generatedText = generatedText.Substring(generatedText.IndexOf("Вопрос:") + 7).Trim();
+                            generatedText = generatedText.Substring(thinkEndIndex + 8).Trim(); // Убираем все до </think>
                         }
 
                         // Ограничиваем длину ответа
