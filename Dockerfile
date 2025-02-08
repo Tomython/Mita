@@ -1,20 +1,26 @@
-# Этап сборки: используем .NET 8.0 SDK
+# Этап сборки: собираем проект
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
 WORKDIR /src
 
-# Копируем файл проекта и восстанавливаем зависимости
+# Копируем проект
 COPY MitaBot.csproj .
-RUN dotnet restore "MitaBot.csproj"
 
-# Копируем остальные файлы проекта
+# Восстанавливаем зависимости
+RUN dotnet restore "MitaBot.csproj" --verbosity detailed
+
+# Копируем остальные файлы
 COPY . .
 
-# Переходим в директорию проекта и публикуем его
-WORKDIR "/src/MitaBot"
+# Публикуем проект
 RUN dotnet publish "MitaBot.csproj" -c Release -o /app/publish
 
 # Этап выполнения: используем .NET 8.0 Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+
 WORKDIR /app
+
+# Копируем опубликованный проект
 COPY --from=build /app/publish .
+
 ENTRYPOINT ["dotnet", "MitaBot.dll"]
