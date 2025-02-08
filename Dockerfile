@@ -4,7 +4,7 @@ WORKDIR /src
 
 # Копируем файл проекта и восстанавливаем зависимости
 COPY MitaBot.csproj .
-RUN dotnet restore "MitaBot/MitaBot.csproj" --verbosity detailed
+RUN dotnet restore "MitaBot.csproj"
 
 # Копируем остальные файлы проекта
 COPY . .
