@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MitaBot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d33e487592b04b28dd6d619d9d6a92ef224fdfe9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d71d2077620e2652f0ccd5fde42e57b7a31f4868")]
 [assembly: System.Reflection.AssemblyProductAttribute("MitaBot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MitaBot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
