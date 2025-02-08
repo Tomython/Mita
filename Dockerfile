@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Копируем файл проекта и восстанавливаем зависимости
-COPY ["MitaBot/MitaBot.csproj", "MitaBot/"]
+COPY MitaBot.csproj .
 RUN dotnet restore "MitaBot/MitaBot.csproj" --verbosity detailed
 
 # Копируем остальные файлы проекта
