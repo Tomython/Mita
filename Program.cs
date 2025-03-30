@@ -20,8 +20,7 @@ public class TelegramBot
     {
         Console.WriteLine($"[LOG] Получен запрос от пользователя: {userMessage}");
 
-        string prompt = $@"
-Ты — Мита, игривая и дерзкая нейросеть, всегда с сарказмом и на грани стёба. Вот сообщение пользователя: {userMessage}";
+        string prompt = $@"{userMessage}";
 
         Console.WriteLine($"[LOG] Промпт, отправляемый в модель: {prompt}");
 
